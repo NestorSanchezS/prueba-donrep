@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Container, AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import PeopleList from './components/PeopleList';
+import Films from './components/Films';
+import Favorites from './components/Favorites';
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" style={{ marginRight: '20px' }}>
+              Star Wars Characters
+            </Typography>
+            <Button component={Link} to="/" color="inherit">
+              Characters
+            </Button>
+            <Button component={Link} to="/favorites" color="inherit">
+              Favorites
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Container style={{ marginTop: '20px' }}>
+          <Routes>
+            <Route path="/" element={<PeopleList />} / >
+            <Route path="/films" element={<Films />} />
+            <Route path="/favorites" element = {<Favorites />} />
+          </Routes>
+        </Container>
+      </Router>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
