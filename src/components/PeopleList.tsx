@@ -37,7 +37,6 @@ function PeopleList() {
   let page = parseInt(queryParams.get('page') || '1');
 
   const classes = useStyles();
-
   const { data: people, isLoading } = useQuery(['people', page], () => fetchPeople(page));
 
   const handleViewFilms = (films: string[]) => {
@@ -62,7 +61,7 @@ function PeopleList() {
     return <Typography>Loading...</Typography>;
   }
 
- 
+  
 
   return (
     <Container>
@@ -86,6 +85,23 @@ function PeopleList() {
                   subheader={`${person.height}, ${person.gender}`}
                 />
               </Card>
+              {/* <Card>
+                <CardContent>
+                  <Typography variant="h5" component="h2">
+                    {person.name}
+                  </Typography>
+                  <Typography color="textSecondary">Height: {person.height}</Typography>
+                  <Typography color="textSecondary">Mass: {person.mass}</Typography>
+                  <Typography color="textSecondary">Gender: {person.gender}</Typography>
+                </CardContent>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleViewFilms(person.films)}
+                >
+                  View Films
+                </Button>
+              </Card> */}
             </Grid>
           ))}
       </Grid>
