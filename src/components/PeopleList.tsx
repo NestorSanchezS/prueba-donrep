@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {IconButton, Avatar,CardHeader, Container, Grid, Card, CardContent, Typography, Button } from '@material-ui/core';
+import { IconButton, Avatar, CardHeader, Container, Grid, Card, CardContent, Typography, Button } from '@material-ui/core';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import SendIcon from '@mui/icons-material/Send';
 import { makeStyles, createStyles } from "@material-ui/core/styles";
@@ -19,6 +19,7 @@ async function fetchPeople(page: number): Promise<Person[]> {
   const data = await response.json();
   return data.results;
 }
+
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -40,7 +41,6 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-
 function PeopleList() {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -49,10 +49,43 @@ function PeopleList() {
   const classes = useStyles();
 
   const { data: people, isLoading } = useQuery(['people', page], () => fetchPeople(page));
+  const [favorites, setFavorites] = useState<Person[]>([]);
+
+
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('favorites');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   const handleViewFilms = (films: string[]) => {
     navigate(`/films?films=${encodeURIComponent(JSON.stringify(films))}`);
   };
+
+const handleToggleFavorite = (name: string) => {
+  setFavorites((prevFavorites) => {
+    const isAlreadyFavorite = prevFavorites.some((favorite) => favorite.name === name);
+    if (isAlreadyFavorite) {
+      return prevFavorites.filter((favorite) => favorite.name !== name);
+    } else {
+      const person = people && people.find((person) => person.name === name);
+      if (person) {
+        return [...prevFavorites, person];
+      } else {
+        return prevFavorites;
+      }
+    }
+  });
+};
+
+  
+  const isFavorite = (name: string) => favorites.some((favorite) => favorite.name === name);
+
 
   const handlePreviousPage = () => {
     if (page > 1) {
@@ -72,8 +105,6 @@ function PeopleList() {
     return <Typography>Loading...</Typography>;
   }
 
-  
-
   return (
     <Container>
       <Grid container spacing={2}>
@@ -84,30 +115,29 @@ function PeopleList() {
                 <CardHeader
                   avatar={
                     <div aria-label="recipe" className={classes.avatarContainer}>
-                      <img src="/wars.webp" alt="avatar" className={classes.avatarImg}/>
+                      <img src="/wars.webp" alt="avatar" className={classes.avatarImg} />
                     </div>
                   }
                   action={
-                    <IconButton aria-label="settings">
-                      <FavoriteIcon />
+                    <IconButton aria-label="settings" onClick={() => handleToggleFavorite(person.name)}>
+                      <FavoriteIcon color={isFavorite(person.name) ? 'secondary' : 'action'} />
                     </IconButton>
                   }
                   title={person.name}
                   subheader={`${person.height}, ${person.gender}`}
                 />
-                <div style={{textAlign: 'center', marginBottom:"10px"}}>
-                <Button variant="contained" endIcon={<SendIcon />}  size="small" color="primary" onClick={() => handleViewFilms(person.films)}>
-                  View Films
-                </Button>
+                <div style={{ textAlign: 'center', marginBottom: "10px" }}>
+                  <Button variant="contained" endIcon={<SendIcon />} size="small" color="primary" onClick={() => handleViewFilms(person.films)}>
+                    View Films
+                  </Button>
                 </div>
-                
               </Card>
             </Grid>
           ))}
       </Grid>
       <div style={{ marginTop: '50px', textAlign: 'center' }}>
         {page > 1 && (
-          <Button style={{marginRight: '10px'}} variant="contained" color="primary" onClick={handlePreviousPage}>
+          <Button style={{ marginRight: '10px' }} variant="contained" color="primary" onClick={handlePreviousPage}>
             Previous Page
           </Button>
         )}
@@ -117,11 +147,8 @@ function PeopleList() {
           </Button>
         )}
       </div>
-      
     </Container>
   );
 }
 
 export default PeopleList;
-
-
