@@ -1,4 +1,4 @@
-import{ useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container, Typography, Modal } from '@material-ui/core';
 
@@ -22,6 +22,7 @@ function Films() {
 
   const [filmIndex, setFilmIndex] = useState(0);
   const [film, setFilm] = useState<Film | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(true); // Variable de estado para controlar la apertura y el cierre del modal
 
   useEffect(() => {
     const fetchAndSetFilm = async () => {
@@ -43,6 +44,7 @@ function Films() {
   };
 
   const handleClose = () => {
+    setIsModalOpen(false); // Actualiza la variable de estado para cerrar el modal
     setFilm(null);
   };
 
@@ -51,7 +53,7 @@ function Films() {
   }
 
   return (
-    <Modal open={true} onClose={handleClose}>
+    <Modal open={isModalOpen} onClose={handleClose}>
       <div>
         <Container>
           <Typography variant="h4" component="h2">

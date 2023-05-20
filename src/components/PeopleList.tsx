@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {IconButton, Avatar,CardHeader, Container, Grid, Card, CardContent, Typography, Button } from '@material-ui/core';
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import SendIcon from '@mui/icons-material/Send';
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 interface Person {
@@ -14,7 +15,7 @@ interface Person {
 }
 
 async function fetchPeople(page: number): Promise<Person[]> {
-  const response = await fetch(`https://swapi.dev/api/people/?page=${page}`);
+  const response = await fetch(`https://swapi.dev/api/people/?page=${page}&limit=20`);
   const data = await response.json();
   return data.results;
 }
@@ -25,7 +26,17 @@ const useStyles = makeStyles((theme) =>
     },
     avatar: {
       backgroundColor: theme.palette.primary.main
-    }
+    },
+    avatarContainer: {
+      width: 60,
+      height: 60,
+    },
+    avatarImg: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      borderRadius: '50%',
+    },
   })
 );
 
@@ -35,8 +46,8 @@ function PeopleList() {
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   let page = parseInt(queryParams.get('page') || '1');
-
   const classes = useStyles();
+
   const { data: people, isLoading } = useQuery(['people', page], () => fetchPeople(page));
 
   const handleViewFilms = (films: string[]) => {
@@ -69,12 +80,12 @@ function PeopleList() {
         {people &&
           people.map((person) => (
             <Grid item xs={12} sm={6} md={4} key={person.name}>
-                 <Card className={classes.root} onClick={() => handleViewFilms(person.films)}>
+              <Card className={classes.root}>
                 <CardHeader
                   avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      :)
-                    </Avatar>
+                    <div aria-label="recipe" className={classes.avatarContainer}>
+                      <img src="/wars.webp" alt="avatar" className={classes.avatarImg}/>
+                    </div>
                   }
                   action={
                     <IconButton aria-label="settings">
@@ -84,24 +95,13 @@ function PeopleList() {
                   title={person.name}
                   subheader={`${person.height}, ${person.gender}`}
                 />
-              </Card>
-              {/* <Card>
-                <CardContent>
-                  <Typography variant="h5" component="h2">
-                    {person.name}
-                  </Typography>
-                  <Typography color="textSecondary">Height: {person.height}</Typography>
-                  <Typography color="textSecondary">Mass: {person.mass}</Typography>
-                  <Typography color="textSecondary">Gender: {person.gender}</Typography>
-                </CardContent>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleViewFilms(person.films)}
-                >
+                <div style={{textAlign: 'center', marginBottom:"10px"}}>
+                <Button variant="contained" endIcon={<SendIcon />}  size="small" color="primary" onClick={() => handleViewFilms(person.films)}>
                   View Films
                 </Button>
-              </Card> */}
+                </div>
+                
+              </Card>
             </Grid>
           ))}
       </Grid>
