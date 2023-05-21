@@ -1,14 +1,15 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Typography, Modal, makeStyles, Backdrop, Fade } from '@material-ui/core';
-
+import { Container, Typography, Modal, makeStyles, Backdrop, Fade, Button } from '@material-ui/core';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { ColorGreen } from '../utils/constans';
 interface Film {
   title: string;
   opening_crawl: string;
   director: string;
   release_date: string;
 }
-
 async function fetchFilm(url: string): Promise<Film> {
   const response = await fetch(url);
   const data = await response.json();
@@ -22,22 +23,26 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
+    padding: theme.spacing(3),
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
+    maxWidth: 600,
+    margin: '0 auto',
+    marginTop: 20,
+  }
+})
+);
 
 function Films() {
   const { search } = useLocation();
+  const classes = useStyles();
   const queryParams = new URLSearchParams(search);
   const films = JSON.parse(queryParams.get('films') || '[]');
 
   const [filmIndex, setFilmIndex] = React.useState(0);
   const [film, setFilm] = React.useState<Film | null>(null);
-  const [open, setOpen] = React.useState(true); // Estado para controlar la apertura y cierre del modal
+  const [open, setOpen] = React.useState(true); 
 
-  const navigate = useNavigate(); // Historial de navegación de React Router
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const fetchAndSetFilm = async () => {
@@ -59,11 +64,10 @@ function Films() {
   };
 
   const handleClose = () => {
-    setOpen(false); // Cerrar el modal estableciendo el estado de "open" en false
-    navigate(-1); // Regresar al componente anterior utilizando la función goBack() del historial de navegación
+    setOpen(false);
+    navigate(-1); 
   };
 
-  const classes = useStyles();
 
   if (!film) {
     return null;
@@ -71,7 +75,7 @@ function Films() {
 
   return (
     <Modal
-      open={open} // Utilizar el estado "open" para controlar la apertura y cierre del modal
+      open={open} 
       onClose={handleClose}
       className={classes.modal}
       closeAfterTransition
@@ -81,22 +85,29 @@ function Films() {
       }}
     >
       <Fade in={open}>
-        <div className={classes.paper}>
-          <Container>
-            <Typography variant="h4" component="h2">
-              {film.title}
-            </Typography>
-            <Typography color="textSecondary">Director: {film.director}</Typography>
-            <Typography color="textSecondary">Release Date: {film.release_date}</Typography>
-            <Typography>{film.opening_crawl}</Typography>
-            {filmIndex > 0 && (
-              <button onClick={handlePreviousFilm}>Previous Film</button>
-            )}
-            {filmIndex < films.length - 1 && (
-              <button onClick={handleNextFilm}>Next Film</button>
-            )}
-          </Container>
+      <div className={classes.paper}>
+      <Container>
+        <Typography variant="h4" component="h2">
+          {film.title}
+        </Typography>
+        <Typography color="textSecondary">Director: {film.director}</Typography>
+        <Typography color="textSecondary">Release Date: {film.release_date}</Typography>
+        <Typography>{film.opening_crawl}</Typography>
+        <div style={{ marginTop: '50px', textAlign: 'center' }}>
+
+        {filmIndex > 0 && (
+          <Button onClick={handlePreviousFilm} style={{color: ColorGreen}}>
+            <ArrowBackIosIcon />
+          </Button>
+        )}
+        {filmIndex < films.length - 1 && (
+          <Button onClick={handleNextFilm} style={{color: ColorGreen}}>
+            <ArrowForwardIosIcon />
+          </Button>
+        )}
         </div>
+      </Container>
+    </div>
       </Fade>
     </Modal>
   );

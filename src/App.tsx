@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Container, AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import PeopleList from './components/PeopleList';
+import PeopleList from './pages/PeopleList';
 import Films from './components/Films';
-import Favorites from './components/Favorites';
+import Favorites from './pages/Favorites';
+import { ColorGreen } from './utils/constans';
 
 const queryClient = new QueryClient();
 
@@ -13,9 +14,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <AppBar position="static">
+        <AppBar position="static" style={{ backgroundColor: ColorGreen }}>
           <Toolbar>
-          <Button component ={Link} to="/" style={{ marginRight: '20px', textTransform: 'none', color: 'white', fontSize: '1.2rem' }}>
+          <Button component ={Link} to="/" style={{ marginRight: '20px', textTransform: 'none', color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
               Start Wars Characters
             </Button>
             <div style={{ marginLeft: 'auto' }}> {/* Espacio flexible para empujar el IconButton hacia la derecha */}
