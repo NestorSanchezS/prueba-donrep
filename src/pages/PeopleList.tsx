@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {  Container, Grid, Typography, Button } from '@material-ui/core';
-import CardComponent from '../components/CardComponent';
+import {  Container, Grid } from '@material-ui/core';
+import CardComponent from '../components/Card';
 import Loading from '../components/Loading ';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { ColorGreen } from '../utils/constans';
+import CustomButton from '../components/CustomButton';
+
 
 interface Person {
   name: string;
@@ -24,6 +25,7 @@ async function fetchPeople(page: number): Promise<Person[]> {
 
 
 function PeopleList() {
+  
   const navigate = useNavigate();
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -99,14 +101,14 @@ const handleToggleFavorite = (name: string) => {
       </Grid>
       <div style={{ marginTop: '50px', textAlign: 'center' }}>
         {page > 1 && (
-          <Button  onClick={handlePreviousPage} style={{color: ColorGreen}}>
+          <CustomButton  onClick={handlePreviousPage}>
             <ArrowBackIosIcon />
-          </Button>
+          </CustomButton>
         )}
         {people && people.length > 0 && (
-          <Button   onClick={handleNextPage} style={{color: ColorGreen}}>
+          <CustomButton   onClick={handleNextPage}>
             <ArrowForwardIosIcon />
-          </Button>
+          </CustomButton>
         )}
       </div>
     </Container>

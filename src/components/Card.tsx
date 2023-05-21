@@ -1,35 +1,10 @@
 import React from 'react';
 import { Grid, Card, CardHeader, IconButton, Button } from '@material-ui/core';
-import { makeStyles, createStyles } from "@material-ui/core/styles";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { ColorGreen, ColorShadow, ColorBlack, ColorLetterP } from '../utils/constans';
+import { ColorShadow, ColorBlack } from '../utils/constans';
+import { stylesCard } from '../utils/Styles'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      maxWidth: 345
-    },
-    avatarContainer: {
-      width: 60,
-      height: 60,
-    },
-    avatarImg: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      borderRadius: '50%',
-    },
-    title: {
-      color: ColorLetterP,
-      fontWeight: 'bold',
-      fontSize:"16px"
-    },
-    subheader: {
-      color: ColorBlack,
-    },
-  })
-);
 
 interface Person {
   name: string;
@@ -54,7 +29,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
   onRemoveFavorite,
   onViewFilms,
 }) => {
-  const classes = useStyles();
+  const classes = stylesCard();
 
   const handleToggleFavorite = () => {
     if (onToggleFavorite) {
@@ -76,7 +51,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
 
   return (
     <Grid item xs={12} sm={6} md={4} key={person.name}>
-      <Card className={classes.root} style={{backgroundColor: ColorShadow}}>
+      <Card className={`${classes.root}`} style={{ backgroundColor: ColorShadow}}>
         <CardHeader
           avatar={
             <div aria-label="recipe" className={classes.avatarContainer}>
@@ -100,12 +75,11 @@ const CardComponent: React.FC<CardComponentProps> = ({
           subheader={`${person.height}, ${person.gender}`}
         />
         {onViewFilms && (
-          <div style={{ textAlign: 'center', marginBottom: '10px'}}>
+          <div className={classes.buttonContainer}>
             <Button
-              style = {{backgroundColor: ColorGreen, color: ColorShadow, fontSize: '11px', fontWeight: 'bold'}}
+              className={classes.bViewFilms}
               variant="contained"
               size="small"
-              color="primary"
               onClick={handleViewFilms}
             >
               View Films

@@ -1,9 +1,10 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Typography, Modal, makeStyles, Backdrop, Fade, Button } from '@material-ui/core';
+import { Container, Typography, Modal, Backdrop, Fade, Button } from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { ColorGreen } from '../utils/constans';
+import {stylesModal} from '../utils/Styles'
+import CustomButton from './CustomButton';
 interface Film {
   title: string;
   opening_crawl: string;
@@ -16,25 +17,9 @@ async function fetchFilm(url: string): Promise<Film> {
   return data;
 }
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    padding: theme.spacing(3),
-    backgroundColor: theme.palette.background.paper,
-    maxWidth: 600,
-    margin: '0 auto',
-    marginTop: 20,
-  }
-})
-);
-
 function Films() {
   const { search } = useLocation();
-  const classes = useStyles();
+  const classes = stylesModal();
   const queryParams = new URLSearchParams(search);
   const films = JSON.parse(queryParams.get('films') || '[]');
 
@@ -87,23 +72,23 @@ function Films() {
       <Fade in={open}>
       <div className={classes.paper}>
       <Container>
-        <Typography variant="h4" component="h2">
+        <Typography variant="h4" component="h2" className={classes.tittle}>
           {film.title}
         </Typography>
-        <Typography color="textSecondary">Director: {film.director}</Typography>
-        <Typography color="textSecondary">Release Date: {film.release_date}</Typography>
-        <Typography>{film.opening_crawl}</Typography>
+        <Typography className={classes.subtittle}>Director: {film.director}</Typography>
+        <Typography  className={classes.subtittle}>Release Date: {film.release_date}</Typography>
+        <Typography className={classes.p}>{film.opening_crawl}</Typography>
         <div style={{ marginTop: '50px', textAlign: 'center' }}>
 
         {filmIndex > 0 && (
-          <Button onClick={handlePreviousFilm} style={{color: ColorGreen}}>
+          <CustomButton onClick={handlePreviousFilm}>
             <ArrowBackIosIcon />
-          </Button>
+          </CustomButton>
         )}
         {filmIndex < films.length - 1 && (
-          <Button onClick={handleNextFilm} style={{color: ColorGreen}}>
+          <CustomButton onClick={handleNextFilm}>
             <ArrowForwardIosIcon />
-          </Button>
+          </CustomButton>
         )}
         </div>
       </Container>
