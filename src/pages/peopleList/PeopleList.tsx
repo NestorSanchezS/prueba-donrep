@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {  Container, Grid } from '@material-ui/core';
-import CardComponent from '../../components/CustomCard';
-import Loading from '../../components/Loading ';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 import CustomButton from '../../components/CustomButton';
+import CardComponent from '../../components/CustomCard';
+import Loading from '../../components/Loading ';
 
 
 interface Person {

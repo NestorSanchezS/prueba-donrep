@@ -11,7 +11,7 @@ RUN npm run build
 # Etapa de producción
 FROM nginx:1.21.0-alpine
 
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 5173
 
