@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Typography, Modal, Backdrop, Fade, Button } from '@material-ui/core';
+import { Container, Typography, Modal, Backdrop, Fade} from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {stylesModal} from '../utils/Styles'

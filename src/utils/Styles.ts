@@ -29,7 +29,7 @@ export const stylesModal = makeStyles((theme) => ({
   }
 }));
 
-export const stylesLoading = makeStyles((theme) => ({
+export const stylesLoading = makeStyles(() => ({
   container: {
     display: 'flex',
     justifyContent: 'center',
@@ -41,7 +41,7 @@ export const stylesLoading = makeStyles((theme) => ({
   }
 }));
 
-export const stylesCard = makeStyles((theme) => ({
+export const stylesCard = makeStyles(() => ({
     root: {
       maxWidth: 345
     },
@@ -81,7 +81,7 @@ export const stylesCard = makeStyles((theme) => ({
     }
 }));
 
-export const stylesFavorites = makeStyles((themes)=>({
+export const stylesFavorites = makeStyles(()=>({
    container: {
     display: 'flex',
     justifyContent: 'center',
@@ -94,7 +94,7 @@ export const stylesFavorites = makeStyles((themes)=>({
   },
 }));
 
-export const stylesCustomAppBar = makeStyles((themes)=>({
+export const stylesCustomAppBar = makeStyles(()=>({
     buttomCharacters:{
     marginRight: '20px', 
     textTransform: 'none', 

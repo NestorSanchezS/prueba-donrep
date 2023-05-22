@@ -14,15 +14,15 @@ interface Person {
   films: string[];
 }
 
-interface CardComponentProps {
+interface CustomCardProps {
   person: Person;
-  isFavorite: (name: string) => boolean;
+  isFavorite?: (name: string) => boolean;
   onToggleFavorite?: (name: string) => void;
   onRemoveFavorite?: (name: string) => void;
   onViewFilms?: (films: string[]) => void;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({
+const CustomCard: React.FC<CustomCardProps> = ({
   person,
   isFavorite,
   onToggleFavorite,
@@ -61,7 +61,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
           action={
             onToggleFavorite ? (
               <IconButton aria-label="settings" onClick={handleToggleFavorite}>
-                <FavoriteIcon color={isFavorite(person.name) ? 'secondary' : 'action'} />
+                <FavoriteIcon color={isFavorite?.(person.name) ? 'secondary' : 'action'} />
               </IconButton>
             ) : (
               <IconButton aria-label="settings" onClick={handleRemoveFavorite}>
@@ -91,4 +91,4 @@ const CardComponent: React.FC<CardComponentProps> = ({
   );
 };
 
-export default CardComponent;
+export default CustomCard;

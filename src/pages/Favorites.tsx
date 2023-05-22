@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
-import CardComponent from '../components/Card';
+import CustomCard from '../components/CustomCard';
 import { stylesFavorites } from '../utils/Styles';
 interface Person {
   name: string;
@@ -41,7 +41,7 @@ function FavoritesList() {
     <Container>
       <Grid container spacing={2}>
         {favorites.map((person) => (
-          <CardComponent
+          <CustomCard
             key={person.name}
             person={person}
             onRemoveFavorite={() => handleRemoveFavorite(person.name)}
