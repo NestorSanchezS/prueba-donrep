@@ -92,4 +92,14 @@ export const stylesFavorites = makeStyles((themes)=>({
     fontSize: '2rem',
     color: ColorGreen, 
   },
-}))
+}));
+
+export const stylesCustomAppBar = makeStyles((themes)=>({
+    buttomCharacters:{
+    marginRight: '20px', 
+    textTransform: 'none', 
+    color: 'white', 
+    fontSize: '1.5rem', 
+    ontWeight: 'bold'
+  }
+}));
