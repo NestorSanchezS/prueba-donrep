@@ -5,9 +5,11 @@ import {  Container, Grid } from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-import CustomButton from '../../components/CustomButton';
-import CardComponent from '../../components/CustomCard';
-import Loading from '../../components/Loading ';
+import CustomButton from '../components/CustomButton';
+import CardComponent from '../components/CustomCard';
+import Loading from '../components/Loading ';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
 interface Person {
@@ -19,7 +21,7 @@ interface Person {
 }
 
 async function fetchPeople(page: number): Promise<Person[]> {
-  const response = await fetch(`https://swapi.dev/api/people/?page=${page}&limit=20`);
+  const response = await fetch(`${apiUrl}/?page=${page}`);
   const data = await response.json();
   return data.results;
 }

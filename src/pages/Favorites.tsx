@@ -10,7 +10,7 @@ interface Person {
   films: string[];
 }
 
-function FavoritesList() {
+function Favorites() {
   const classes = stylesFavorites();
   const [favorites, setFavorites] = useState<Person[]>([]);
 
@@ -52,4 +52,4 @@ function FavoritesList() {
   );
 }
 
-export default FavoritesList;
+export default Favorites;

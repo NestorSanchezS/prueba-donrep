@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Container } from '@material-ui/core';
 import CustomAppBar from './components/CustomAppBar'
-import PeopleList from './pages/peopleList/PeopleList';
+import PeopleList from './pages/PeopleList';
 import Films from './components/Films';
 import Favorites from './pages/Favorites';
 
