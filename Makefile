@@ -15,3 +15,6 @@ dowm:
 
 start:
 	sh scripts.sh start
+
+reload:
+	sh scripts.sh reload
