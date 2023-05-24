@@ -1,11 +1,14 @@
 build:
-	sh script.sh build
+	sh scripts.sh build
 
 publish:
-	sh script.sh publish
+	sh scripts.sh publish
 
 push-img:
-	sh script.sh push-img
+	sh scripts.sh push-img
 
 deploy:
-	sh script.sh deploy
+	sh scripts.sh deploy
+
+dowm:
+	docker compose down
