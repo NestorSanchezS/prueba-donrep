@@ -12,3 +12,6 @@ deploy:
 
 dowm:
 	docker compose down
+
+dowm:
+	sh scripts.sh start
