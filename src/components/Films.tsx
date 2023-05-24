@@ -21,9 +21,6 @@ function Films() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Hola")
-    console.log(filmIndex)
-    console.log(films)
     const fetchAndSetFilm = async () => {
         const fetchedFilm = await fetchFilm(films[filmIndex]);
         setFilm(fetchedFilm);
