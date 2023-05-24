@@ -19,7 +19,19 @@ push_img() {
     docker push nestorsanchezz/prueba-donrep:latest
 }
 
-if [ "$action" = "build" ]; then
+
+if [ "$action" = "start" ]; then
+
+    [ ! -f acme.json ] && touch acme.json && chmod 600 acme.json && log "create acme.json for tls certificates"
+    [ ! -f traefik.log ] && touch traefik.log && log "create traefik.log for error logs"
+
+    echo "--launch projects"
+    docker-compose up -d 
+
+    echo "--finish start"
+
+
+elif [ "$action" = "build" ]; then
     build_img "$2"
 
 elif [ "$action" = "publish" ]; then
