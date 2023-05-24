@@ -1,4 +1,4 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Typography, Modal, Backdrop, Fade} from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -14,22 +14,23 @@ function Films() {
   const queryParams = new URLSearchParams(search);
   const films = JSON.parse(queryParams.get('films') || '[]');
 
-  const [filmIndex, setFilmIndex] = React.useState(0);
-  const [film, setFilm] = React.useState<Film | null>(null);
-  const [open, setOpen] = React.useState(true); 
+  const [filmIndex, setFilmIndex] = useState(0);
+  const [film, setFilm] = useState<Film | null>(null);
+  const [open, setOpen] = useState(true); 
 
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    console.log("Hola")
+    console.log(filmIndex)
+    console.log(films)
     const fetchAndSetFilm = async () => {
-      if (filmIndex >= 0 && filmIndex < films.length) {
         const fetchedFilm = await fetchFilm(films[filmIndex]);
         setFilm(fetchedFilm);
-      }
     };
 
     fetchAndSetFilm();
-  }, [filmIndex, films]);
+  }, [filmIndex]);
 
   const handleNextFilm = () => {
     setFilmIndex((prevIndex) => prevIndex + 1);
