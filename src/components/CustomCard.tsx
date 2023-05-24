@@ -4,15 +4,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ColorShadow, ColorBlack } from '../utils/constans';
 import { stylesCard } from '../utils/Styles'
+import {Person} from '../models'
 
-
-interface Person {
-  name: string;
-  height: string;
-  mass: string;
-  gender: string;
-  films: string[];
-}
 
 interface CustomCardProps {
   person: Person;

@@ -2,13 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Grid, Typography } from '@material-ui/core';
 import CustomCard from '../components/CustomCard';
 import { stylesFavorites } from '../utils/Styles';
-interface Person {
-  name: string;
-  height: string;
-  mass: string;
-  gender: string;
-  films: string[];
-}
+import { Person } from '../models';
 
 function Favorites() {
   const classes = stylesFavorites();

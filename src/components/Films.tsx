@@ -3,19 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Typography, Modal, Backdrop, Fade} from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import {stylesModal} from '../utils/Styles'
+import {stylesModal} from '../utils/Styles';
 import CustomButton from './CustomButton';
-interface Film {
-  title: string;
-  opening_crawl: string;
-  director: string;
-  release_date: string;
-}
-async function fetchFilm(url: string): Promise<Film> {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
-}
+import { fetchFilm } from '../hooks/api';
+import { Film } from '../models';
 
 function Films() {
   const { search } = useLocation();

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {  Container, Grid } from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -8,23 +7,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CustomButton from '../components/CustomButton';
 import CardComponent from '../components/CustomCard';
 import Loading from '../components/Loading ';
-
-const apiUrl = import.meta.env.VITE_API_URL;
-
-
-interface Person {
-  name: string;
-  height: string;
-  mass: string;
-  gender: string;
-  films: string[];
-}
-
-async function fetchPeople(page: number): Promise<Person[]> {
-  const response = await fetch(`${apiUrl}/?page=${page}`);
-  const data = await response.json();
-  return data.results;
-}
+import {Person} from '../models/index';
+import { usePeople } from '../hooks/api';
 
 
 function PeopleList() {
@@ -34,8 +18,8 @@ function PeopleList() {
   const queryParams = new URLSearchParams(search);
   let page = parseInt(queryParams.get('page') || '1');
 
-
-  const { data: people, isLoading } = useQuery(['people', page], () => fetchPeople(page));
+  const {people, isLoading} = usePeople(page);
+  
   const [favorites, setFavorites] = useState<Person[]>([]);
 
 
