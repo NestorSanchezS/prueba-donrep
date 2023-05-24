@@ -26,7 +26,7 @@ if [ "$action" = "start" ]; then
     [ ! -f traefik.log ] && touch traefik.log && log "create traefik.log for error logs"
 
     echo "--launch projects"
-    docker-compose up -d 
+    docker compose up -d 
 
     echo "--finish start"
 
@@ -42,8 +42,8 @@ elif [ "$action" = "push-img" ]; then
     push_img "$2"
 
 elif [ "$action" = "reload" ]; then
-    docker-compose pull
-    docker-compose up --force-recreate --no-deps -d 
+    docker compose pull
+    docker compose up --force-recreate --no-deps -d 
     docker image prune -f
 
 elif [ "$action" = "deploy" ]; then
