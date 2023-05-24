@@ -12,16 +12,11 @@ services:
       - ./acme.json:/acme.json
       - ./traefik.log:/traefik.log
 
-  portafolio:
-    image: nestorsanchezz/portafolio:latest
+  prueba-donrep:
+    image: nestorsanchezz/prueba-donrep:latest
     labels:
-      - traefik.http.routers.portafolio.rule=Host(`sancheznestor.com`)
-      - traefik.http.routers.portafolio.tls.certresolver=myresolver
-      - traefik.http.routers.portafolio.rule=(Host(`sancheznestor.com`) || Host(`www.sancheznestor.com`))
-    ports:
-      - 5173:5173
-    env_file:
-      - .portafolio.env
+      - traefik.http.routers.prueba-donrep.tls.certresolver=myresolver
+      - traefik.http.routers.prueba-donrep.rule=(Host(`${DOMAIN:-sancheznestor.com}`) || Host(`www.${DOMAIN:-sancheznestor.com}`))
 
 volumes:
   dbdata:
