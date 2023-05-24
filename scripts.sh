@@ -42,7 +42,7 @@ elif [ "$action" = "push-img" ]; then
     push_img "$2"
 
 elif [ "$action" = "reload" ]; then
-    docker compose pull
+    docker compose pull prueba-donrep
     docker compose up --force-recreate --no-deps -d 
     docker image prune -f
 
