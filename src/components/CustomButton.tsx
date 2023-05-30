@@ -8,11 +8,11 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-const CustomButton: React.FC<ButtonProps> = ({
+const CustomButton= ({
   onClick,
   disabled = false,
   children,
-}) => {
+}: ButtonProps) => {
   return (
     <Button onClick={onClick} style={{ color: ColorGreen }} disabled={disabled}>
       {children}

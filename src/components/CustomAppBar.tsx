@@ -9,7 +9,7 @@ interface AppBarProps {
   children: React.ReactNode;
 }
 
-const CustomAppBar: React.FC<AppBarProps> = ({ children }) => {
+const CustomAppBar = ({ children }:AppBarProps) => {
   const classes = stylesCustomAppBar();
   return (
     <>

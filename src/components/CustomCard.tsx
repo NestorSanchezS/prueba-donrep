@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Card, CardHeader, IconButton, Button } from '@material-ui/core';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,13 +14,13 @@ interface CustomCardProps {
   onViewFilms?: (films: string[]) => void;
 }
 
-const CustomCard: React.FC<CustomCardProps> = ({
+const CustomCard = ({
   person,
   isFavorite,
   onToggleFavorite,
   onRemoveFavorite,
   onViewFilms,
-}) => {
+}: CustomCardProps) => {
   const classes = stylesCard();
 
   const handleToggleFavorite = () => {
