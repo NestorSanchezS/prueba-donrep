@@ -2,7 +2,7 @@ import {useLocation, Link} from "react-router-dom";
 import {IconButton}  from '@material-ui/core';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-function FavoriteIconButton() {
+function FavoriteIconButton(): JSX.Element {
   const location = useLocation();
   const isFavoritesPage = location.pathname === "/favorites";
 

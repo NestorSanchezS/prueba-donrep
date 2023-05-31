@@ -20,7 +20,8 @@ const CustomCard = ({
   onToggleFavorite,
   onRemoveFavorite,
   onViewFilms,
-}: CustomCardProps) => {
+}: CustomCardProps): JSX.Element => {
+  
   const classes = stylesCard();
 
   const handleToggleFavorite = () => {

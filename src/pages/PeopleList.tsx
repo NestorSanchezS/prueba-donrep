@@ -6,12 +6,12 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import CustomButton from '../components/CustomButton';
 import CardComponent from '../components/CustomCard';
-import Loading from '../components/Loading ';
+import Loading from '../components/Loading';
 import {Person} from '../models/index';
 import { usePeople } from '../hooks/api';
 
 
-function PeopleList() {
+function PeopleList(): JSX.Element {
   
   const navigate = useNavigate();
   const { search } = useLocation();

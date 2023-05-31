@@ -12,7 +12,7 @@ const CustomButton= ({
   onClick,
   disabled = false,
   children,
-}: ButtonProps) => {
+}: ButtonProps): JSX.Element => {
   return (
     <Button onClick={onClick} style={{ color: ColorGreen }} disabled={disabled}>
       {children}
